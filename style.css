@@ -12,8 +12,17 @@ body {
   }
   
   .masked-phrase {
-    font-size: 1.5em;
-    letter-spacing: 0.5em; /* Space between letters */
+    font-size: 1em;
+    letter-spacing: 0.2em; /* Space between letters */
+    white-space: pre; /* Keep spaces visible */
+  }
+
+  .masked-phrase span.punctuation {
+    margin-right: 0.4em; /* Extra spacing for punctuation */
+  }
+
+  #phraseGuess {
+    width: 400px; 
   }
   
   button {

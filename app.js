@@ -45,20 +45,27 @@ createApp({
     },
     // Initialize the game
     setupGame(data) {
-      this.originalPhrase = data.text.toUpperCase();
+      this.originalPhrase = data.text;
       this.correctNumber = data.number;
-      this.maskedPhrase = this.originalPhrase.replace(/[A-Z]/g, "_");
+
+      //      const hiddenPhrase = this.originalPhrase.substring(
+      //        this.originalPhrase.indexOf(" ") + 1
+      //      ); //only keep the content of the phrase after first space
+
+      this.maskedPhrase = this.originalPhrase.replace(/[A-Za-z]/g, "_");
       this.guessedLetters = [];
       this.phraseGuess = "";
       this.numberGuess = null;
       this.score = 26;
       this.gameOver = false;
       this.resultMessage = "";
+      console.log(this.originalPhrase);
+      console.log(this.correctNumber);
     },
     // Handle letter guesses
     guessLetter(letter) {
       this.guessedLetters.push(letter);
-      if (this.originalPhrase.includes(letter)) {
+      if (this.originalPhrase.toLowerCase().includes(letter.toLowerCase())) {
         this.revealLetters(letter);
       } else {
         this.score--; // Deduct score for incorrect guesses
@@ -68,14 +75,17 @@ createApp({
     revealLetters(letter) {
       this.maskedPhrase = this.maskedPhrase
         .split("")
-        .map((char, i) => (this.originalPhrase[i] === letter ? letter : char))
+        .map((char, i) =>
+          this.originalPhrase[i].toLowerCase() === letter.toLowerCase()
+            ? this.originalPhrase[i] // Preserve original case
+            : char
+        )
         .join("");
     },
     // Submit the phrase and number guesses
     submitAnswer() {
       this.gameOver = true;
-      const phraseCorrect =
-        this.phraseGuess.toUpperCase() === this.originalPhrase;
+      const phraseCorrect = this.phraseGuess === this.originalPhrase;
       const numberCorrect = parseInt(this.numberGuess) === this.correctNumber;
 
       if (phraseCorrect && numberCorrect) {

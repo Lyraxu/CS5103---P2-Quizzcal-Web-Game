@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quizzcal Web Game</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.js"></script>
+</head>
+<body>
+  <div id="app">
+    <h1>Quizzcal</h1>
+    <p>Work out what the clue is, and work out what number is being discribed!</p>
+    
+    <!-- Display the masked phrase -->
+    <p v-if="gameOver">{{ resultMessage }}</p>
+    <p v-else>
+      <span class="masked-phrase">{{ spacedMaskedPhrase }}</span>
+    </p>
+
+    <!-- Letter buttons for guessing -->
+    <div v-if="!gameOver" class="letter-buttons">
+      <button 
+        v-for="letter in alphabet" 
+        :key="letter" 
+        :disabled="guessedLetters.includes(letter)" 
+        @click="guessLetter(letter)">
+        {{ letter }}
+      </button>
+    </div>
+
+    <!-- Show guessed letters and inputs for phrase and number -->
+    <div v-if="!gameOver">
+      <p>Guessed Letters: {{ guessedLetters.join(', ') }}</p>
+      <p>
+        <label for="phraseGuess">Phrase:</label>
+        <input id="phraseGuess" v-model="phraseGuess" placeholder="Guess the phrase">
+      </p>
+      <p>
+        <label for="numberGuess">Number:</label>
+        <input id="numberGuess" type="number" v-model="numberGuess" placeholder="Guess the number">
+      </p>
+      <button @click="submitAnswer">Submit Answer</button>
+    </div>
+
+    <!-- Display scoreboard -->
+    <h2>Scoreboard</h2>
+    <div>
+      <label for="sortOptions">Sort by: </label>
+      <select id="sortOptions" v-model="sortKey" @change="sortScores">
+        <option value="score">Score</option>
+        <option value="number">Number</option>
+        <option value="phrase">Phrase</option>
+      </select>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Score</th>
+          <th>Number</th>
+          <th>Phrase</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="entry in sortedScores" :key="entry.phrase + entry.number">
+          <td>{{ entry.score }}</td>
+          <td>{{ entry.number }}</td>
+          <td>{{ entry.phrase }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Button to start a new game -->
+    <button v-if="gameOver" @click="startNewGame">Start New Game</button>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
+

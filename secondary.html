@@ -44,31 +44,7 @@
     </div>
 
     <!-- Display scoreboard -->
-    <h2>Scoreboard</h2>
-    <div>
-      <label for="sortOptions">Sort by: </label>
-      <select id="sortOptions" v-model="sortKey" @change="sortScores">
-        <option value="score">Score</option>
-        <option value="number">Number</option>
-        <option value="phrase">Phrase</option>
-      </select>
-    </div>
-    <table>
-      <thead>
-        <tr>
-          <th>Score</th>
-          <th>Number</th>
-          <th>Phrase</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="entry in sortedScores" :key="entry.phrase + entry.number">
-          <td>{{ entry.score }}</td>
-          <td>{{ entry.number }}</td>
-          <td>{{ entry.phrase }}</td>
-        </tr>
-      </tbody>
-    </table>
+    <p>Current Score: {{ score }}</p>
 
     <!-- Button to start a new game -->
     <button v-if="gameOver" @click="startNewGame">Start New Game</button>

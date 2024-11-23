@@ -48,11 +48,12 @@ createApp({
       this.originalPhrase = data.text;
       this.correctNumber = data.number;
 
-      // const cutnumberPhrase = this.originalPhrase.substring(
-      //   this.originalPhrase.indexOf(" ") + 1
-      // ); //only keep the content of the phrase after first space
+      this.cutnumberPhrase = this.originalPhrase.substring(
+        this.originalPhrase.indexOf(" ") + 1
+      );
+      //only keep the content of the phrase after first space
 
-      this.maskedPhrase = this.originalPhrase.replace(/[A-Za-z]/g, "_");
+      this.maskedPhrase = this.cutnumberPhrase.replace(/[A-Za-z]/g, "_");
       this.guessedLetters = [];
       this.phraseGuess = "";
       this.numberGuess = null;
@@ -61,8 +62,7 @@ createApp({
       this.resultMessage = "";
       console.log(this.originalPhrase);
       console.log(this.correctNumber);
-      //      console.log("Hidden Phrase:", cutnumberPhrase);
-      console.log("Masked Phrase:", this.maskedPhrase);
+      console.log(this.cutnumberPhrase);
     },
     // Handle letter guesses
     guessLetter(letter) {

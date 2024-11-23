@@ -12,9 +12,12 @@ body {
   }
   
   .masked-phrase {
+    width: 100%; 
     font-size: 1em;
     letter-spacing: 0.2em; /* Space between letters */
-    white-space: pre; /* Keep spaces visible */
+    white-space: normal; /* Keep spaces visible */
+    word-wrap: break-word;
+    word-break: break-word;
   }
 
   .masked-phrase span.punctuation {
